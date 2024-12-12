@@ -136,21 +136,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text("Don't have an account? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          RegistrationScreen()));
+                              Navigator.push(context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegistrationScreen()
+                                )
+                              );
                             },
-                            child: Text(
-                              "SignUp",
-                              style: TextStyle(
-                                  color: Color(0xFF274a99),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
+                          child: Text(
+                            "SignUp",
+                            style: TextStyle(
+                              color: Color(0xFF274a99),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15
                             ),
-                          )
-                        ])
+                          ),
+                        )
+                      ]
+                    )
                   ],
                 ),
               ),
