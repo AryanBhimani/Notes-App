@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notes_app/Home%20/home.dart';
 
-
-
 class UserModel {
   String? uid;
   String? email;
@@ -35,8 +33,6 @@ class UserModel {
   }
 }
 
-
-
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -49,7 +45,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   
   // string for displaying the error Message
   String? errorMessage;
-
 
   // our form key
   final _formKey = GlobalKey<FormState>();
@@ -202,17 +197,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       borderRadius: BorderRadius.circular(30),
       color: Color(0xFF274a99),
       child: MaterialButton(
-          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {
-            signUp(emailEditingController.text, passwordEditingController.text);
-          },
-          child: Text(
-            "SignUp",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-          )),
+        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        minWidth: MediaQuery.of(context).size.width,
+        onPressed: () {
+          signUp(emailEditingController.text, passwordEditingController.text);
+        },
+        child: Text(
+          "SignUp",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold
+          ),
+        )
+      ),
     );
 
     return Scaffold(
@@ -329,8 +326,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
     Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-        (route) => false);
+      (context),
+      MaterialPageRoute(
+        builder: (context) => HomeScreen()
+      ),
+      (route) => false
+    );
   }
 }
