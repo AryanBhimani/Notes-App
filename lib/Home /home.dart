@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/Login%20/login.dart';
 import 'package:notes_app/Sign%20Up/signup.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
