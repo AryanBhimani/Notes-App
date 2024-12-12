@@ -63,7 +63,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       // Navigate to the login page if onboarding is completed
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     }
   }
@@ -176,7 +176,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               _setOnboardingCompleted();
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
+                MaterialPageRoute(builder: (context) => LoginScreen()),
               );
             }
           });
