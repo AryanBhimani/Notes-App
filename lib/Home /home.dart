@@ -67,10 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 15,
               ),
               ActionChip(
-                  label: Text("Logout"),
-                  onPressed: () {
-                    logout(context);
-                  }),
+                label: Text("Logout"),
+                onPressed: () {
+                  logout(context);
+                }
+              ),
             ],
           ),
         ),
