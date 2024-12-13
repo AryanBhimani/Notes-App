@@ -1,7 +1,3 @@
-//aryan bhimani
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_gemini/google_gemini.dart';
 import 'package:image_picker/image_picker.dart';
