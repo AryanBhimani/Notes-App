@@ -21,5 +21,15 @@ samples, guidance on mobile development, and a full API reference.
 - [Github] (https://github.com/AryanBhimani/)
 - [Twitter] (https://x.com/aryan46022)
 
-<a href="https://twitter.com/ttamdin5"><img src="https://user-images.githubusercontent.com/35039342/55471524-8e24cb00-5627-11e9-9389-58f3d4419153.png" width="60"></a>
-<a href="https://www.linkedin.com/in/tenzintamdin592/"><img src="https://user-images.githubusercontent.com/35039342/55471530-94b34280-5627-11e9-8c0e-6fe86a8406d6.png" width="60"></a>
+<a href="https://www.linkedin.com/in/aryanbhimani/" target="_blank">
+  <img src="assets/linkedin.png" width="60" alt="LinkedIn">
+</a>
+<a href="https://github.com/AryanBhimani" target="_blank">
+  <img src="assets/github.png" width="60" alt="GitHub">
+</a>
+<a href="https://twitter.com/yourtwitterhandle" target="_blank">
+  <img src="assets/twitter.png" width="60" alt="Twitter">
+</a>
+<a href="https://dev-aryanbhimani.pantheonsite.io/" target="_blank">
+  <img src="assets/portfolio.png" width="60" alt="Portfolio">
+</a>
