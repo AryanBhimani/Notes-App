@@ -31,5 +31,5 @@ samples, guidance on mobile development, and a full API reference.
   <img src="assets/twitter.png" width="60">
 </a>
 <a href="https://dev-aryanbhimani.pantheonsite.io/" target="_blank">
-  <img src="![alt text](image.png)" width="60">
+  <img src="assets/portfolio.png" width="60" >
 </a>
