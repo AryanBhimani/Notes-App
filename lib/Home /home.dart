@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        backgroundColor: const Color(0xFF274a99),
+        backgroundColor: const Color(0xFFFFCA28),
       ),
       drawer: Drawer(
         child: ListView(
@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
             // Drawer Header
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF274a99),
+                color: Color(0xFFFFCA28),
               ),
               child: Center(
                 child: Text(
@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  MaterialPageRoute(builder: (context) => const Login()),
                   (route) => false, // Clears the navigation stack after logout
                 );
               },
@@ -84,7 +84,7 @@ class Home extends StatelessWidget {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) => textOnly()));
         },
-        backgroundColor: const Color(0xFF274a99), // Custom color
+        backgroundColor: Color(0xFFFFCA28), // Custom color
         child: const Icon(Icons.add, color: Colors.white), // Icon with white color
       ),
     );
