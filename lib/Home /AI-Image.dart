@@ -68,7 +68,7 @@ class _textWithImageState extends State<textWithImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color(0xFFFFCA28),
         centerTitle: true,
         title: const Text(
           'AI Image Chat',

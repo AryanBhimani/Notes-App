@@ -66,7 +66,7 @@ class _textOnlyState extends State<textOnly> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color(0xFFFFCA28),
         title: const Text(
           'AI Chat',
           style: TextStyle(

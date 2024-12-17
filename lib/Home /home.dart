@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/Home%20/ai.dart';
-import 'package:notes_app/Home%20/notes.dart';
+import 'package:notes_app/Home%20/AI-Image.dart';
+import 'package:notes_app/Home%20/AI.dart';
 import 'package:notes_app/Home%20/profile.dart';
 import 'package:notes_app/Login%20/login.dart';
 
@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
         centerTitle: true,
         title: const Text("Notes App",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         backgroundColor: const Color(0xFFFFCA28),
@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
                   "Notes App",
                   style: TextStyle(
                     fontSize: 30.0,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -75,18 +75,18 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-      body: const Center(
-        child: Text(
-          "Welcome to Notes App!",
-          style: TextStyle(fontSize: 20.0),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) => textOnly()));
         },
         backgroundColor: Color(0xFFFFCA28), // Custom color
-        child: const Icon(Icons.add, color: Colors.white), // Icon with white color
+        child: const Icon(Icons.add, color: Colors.black), // Icon with white color
+      ),
+      body: const Center(
+        child: Text(
+          "Welcome to Notes App!",
+          style: TextStyle(fontSize: 20.0),
+        ),
       ),
     );
   }
