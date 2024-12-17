@@ -52,7 +52,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderRadius: BorderRadius.circular(8),
                         color: Color(0xFFFFCA28).withOpacity(.2)),
                     child: TextFormField(
-                      
                       decoration: const InputDecoration(
                         icon: Icon(Icons.account_circle),
                         border: InputBorder.none,
