@@ -21,17 +21,17 @@ class OnboardingData {
     OnboardingInfo(
       title: "Unlimited Questions",
       description: "High-quality questions and quizzes with hundreds of tests",
-      image: "assets/onboarding1.gif",
+      image: "assets/onboarding1.png",
     ),
     OnboardingInfo(
       title: "Interesting stories",
       description: "Reading top stories to learn and enhance your knowledge",
-      image: "assets/onboarding2.gif",
+      image: "assets/onboarding2.png",
     ),
     OnboardingInfo(
       title: "Reading Books",
       description: "Reading new books with top content and excellent stories",
-      image: "assets/onboarding3.gif",
+      image: "assets/onboarding3.png",
     ),
   ];
 }
@@ -113,7 +113,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     controller.items[currentIndex].title,
                     style: const TextStyle(
                       fontSize: 25,
-                      color: Color(0xFF274a99),
+                      color: Color(0xFFFFCA28),
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
@@ -146,7 +146,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           margin: const EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            color: currentIndex == index ? Color(0xFF274a99) : Colors.grey,
+            color: currentIndex == index ? Color(0xFFFFCA28) : Colors.grey,
           ),
           height: 7,
           width: currentIndex == index ? 30 : 7,
@@ -164,7 +164,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Color(0xFF274a99),
+        color: Color(0xFFFFCA28),
       ),
       child: TextButton(
         onPressed: () {

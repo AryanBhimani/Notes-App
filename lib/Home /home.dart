@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/Home%20/ai.dart';
 import 'package:notes_app/Home%20/notes.dart';
+import 'package:notes_app/Home%20/profile.dart';
 import 'package:notes_app/Login%20/login.dart';
 
 class Home extends StatelessWidget {
@@ -43,7 +44,7 @@ class Home extends StatelessWidget {
               leading: const Icon(Icons.person),
               title: const Text('Profile'),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const textOnly()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const profile()));
               },
             ),
             ListTile(

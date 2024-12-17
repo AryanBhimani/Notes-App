@@ -52,6 +52,22 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderRadius: BorderRadius.circular(8),
                         color: Color(0xFFFFCA28).withOpacity(.2)),
                     child: TextFormField(
+                      
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.account_circle),
+                        border: InputBorder.none,
+                        hintText: "User Name",
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Color(0xFFFFCA28).withOpacity(.2)),
+                    child: TextFormField(
                       controller: emailname,
                       validator: (value) {
                         if (value!.isEmpty) {
