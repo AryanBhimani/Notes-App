@@ -1,8 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:notes_app/Home%20/home.dart';
 import 'package:notes_app/Login%20/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// OnboardingInfo class
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+      final User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // Navigate to Home if user is logged in
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+        );
+      } else {
+        // Navigate to Login if user is not logged in
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const OnboardingPage()),
+        );
+      }
+    });
+
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
 class OnboardingInfo {
   final String title;
   final String description;

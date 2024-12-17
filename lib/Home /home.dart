@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/Home%20/AI-Image.dart';
 import 'package:notes_app/Home%20/AI.dart';
 import 'package:notes_app/Home%20/profile.dart';
+import 'package:notes_app/Home%20/text.dart';
 import 'package:notes_app/Login%20/login.dart';
 
 class Home extends StatelessWidget {
@@ -77,7 +78,7 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => textOnly()));
+          Navigator.push(context, MaterialPageRoute(builder: (_) => NotesPage()));
         },
         backgroundColor: Color(0xFFFFCA28), // Custom color
         child: const Icon(Icons.add, color: Colors.black), // Icon with white color

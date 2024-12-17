@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/Onboarding/SplashScreen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:notes_app/Onboarding/onboarding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Notes App',
       debugShowCheckedModeBanner: false,
-      home: OnboardingPage(),
+      // home: OnboardingPage(),
+      home: SplashScreen(),
     );
   }
 }
