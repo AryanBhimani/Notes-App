@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/Home%20/AI-Image.dart';
 import 'package:notes_app/Home%20/AI.dart';
 import 'package:notes_app/Home%20/profile.dart';
-import 'package:notes_app/Home%20/text.dart';
+import 'package:notes_app/Home%20/AddNoteScreen.dart';
 import 'package:notes_app/Login%20/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -76,18 +78,43 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.push(context, MaterialPageRoute(builder: (_) => NotesScreen()));
+      //   },
+      //   backgroundColor: Color(0xFFFFCA28), // Custom color
+      //   child: const Icon(Icons.add, color: Colors.black), // Icon with white color
+      // ),
+      //
+
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _firestore.collection('notes').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          final notes = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: notes.length,
+            itemBuilder: (context, index) {
+              final note = notes[index];
+              return ListTile(
+                title: Text(note['title']),
+                subtitle: Text(note['content']),
+              );
+            },
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => NotesPage()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddNoteScreen()),
+          );
         },
-        backgroundColor: Color(0xFFFFCA28), // Custom color
-        child: const Icon(Icons.add, color: Colors.black), // Icon with white color
-      ),
-      body: const Center(
-        child: Text(
-          "Welcome to Notes App!",
-          style: TextStyle(fontSize: 20.0),
-        ),
+        backgroundColor: Color(0xFFFFCA28),
+        child: const Icon(Icons.add, color: Colors.black),
       ),
     );
   }

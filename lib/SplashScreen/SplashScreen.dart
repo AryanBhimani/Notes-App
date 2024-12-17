@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
         // Navigate to Home if user is logged in
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Home()),
+          MaterialPageRoute(builder: (context) => Home()),
         );
       } else {
         // Navigate to Login if user is not logged in

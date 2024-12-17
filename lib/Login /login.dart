@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:notes_app/Home%20/home.dart';
 import 'package:notes_app/Sign%20Up/signup.dart';
 
@@ -11,8 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final TextEditingController emailname = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -28,13 +28,13 @@ class _LoginState extends State<Login> {
 
     try {
       await _auth.signInWithEmailAndPassword(
-        email: emailname.text.trim(),
-        password: password.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Home()),
+        MaterialPageRoute(builder: (context) => Home()),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -65,80 +65,19 @@ class _LoginState extends State<Login> {
                   Image.asset("assets/login.png"),
                   const SizedBox(height: 15),
                   // Email Field
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: const Color(0xFFFFCA28).withOpacity(.12),
-                    ),
-                    child: TextFormField(
-                      controller: emailname,
-                      validator: (value) {
-                        if (value!.isEmpty) return "Useremail is required";
-                        final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                        if (!emailRegex.hasMatch(value)) return "Enter a valid email";
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.account_circle),
-                        border: InputBorder.none,
-                        hintText: "Email",
-                      ),
-                    ),
+                  _buildTextFormField(
+                    controller: emailController,
+                    hintText: "Email",
+                    icon: Icons.email,
+                    validator: (value) {
+                      if (value!.isEmpty) return "Email is required";
+                      final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                      if (!emailRegex.hasMatch(value)) return "Enter a valid email";
+                      return null;
+                    },
                   ),
                   // Password Field
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: const Color(0xFFFFCA28).withOpacity(.12),
-                    ),
-                    child: TextFormField(
-                      controller: password,
-                      validator: (value) {
-                        if (value!.isEmpty) return "Password is required";
-                        return null;
-                      },
-                      obscureText: !isVisible,
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.lock),
-                        border: InputBorder.none,
-                        hintText: "Password",
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isVisible = !isVisible;
-                            });
-                          },
-                          icon: Icon(isVisible ? Icons.visibility : Icons.visibility_off),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Forget Password
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Navigate to forget password screen
-                          },
-                          child: const Text(
-                            'Forget password?',
-                            style: TextStyle(
-                              color: Color(0xFFFFCA28),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  _buildPasswordField(passwordController, "Password"),
                   const SizedBox(height: 15),
                   // Login Button
                   Container(
@@ -150,23 +89,24 @@ class _LoginState extends State<Login> {
                     ),
                     child: isLoading
                         ? const Center(
-                            child: CircularProgressIndicator(color: Colors.white),
-                          )
+                      child: CircularProgressIndicator(color: Colors.white),
+                    )
                         : TextButton(
-                            onPressed: () {
-                              FocusScope.of(context).unfocus();
-                              if (formKey.currentState!.validate()) {
-                                login();
-                              }
-                            },
-                            child: const Text(
-                              "LOGIN",
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        if (formKey.currentState!.validate()) {
+                          login();
+                        }
+                      },
+                      child: const Text(
+                        "LOGIN",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 15),
-                  // Sign Up Redirect
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -175,7 +115,8 @@ class _LoginState extends State<Login> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SignupScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => const SignupScreen()),
                           );
                         },
                         child: const Text(
@@ -188,7 +129,6 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  // Error Message
                   if (errorMessage != null)
                     Text(
                       errorMessage!,
@@ -196,6 +136,70 @@ class _LoginState extends State<Login> {
                     ),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextFormField({
+    required TextEditingController controller,
+    required String hintText,
+    required IconData icon,
+    required String? Function(String?) validator,
+  }) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: const Color(0xFFFFCA28).withOpacity(.2),
+      ),
+      child: TextFormField(
+        controller: controller,
+        validator: validator,
+        decoration: InputDecoration(
+          icon: Icon(icon),
+          border: InputBorder.none,
+          hintText: hintText,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordField(
+      TextEditingController controller,
+      String hintText,
+      ) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: const Color(0xFFFFCA28).withOpacity(.2),
+      ),
+      child: TextFormField(
+        controller: controller,
+        obscureText: !isVisible,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "$hintText is required";
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          icon: const Icon(Icons.lock),
+          border: InputBorder.none,
+          hintText: hintText,
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                isVisible = !isVisible;
+              });
+            },
+            icon: Icon(
+              isVisible ? Icons.visibility : Icons.visibility_off,
             ),
           ),
         ),
