@@ -1,27 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes_app/Home%20/AI-Image.dart';
 import 'package:notes_app/Home%20/AI.dart';
 import 'package:notes_app/Home%20/profile.dart';
-import 'package:notes_app/Home%20/AddNoteScreen.dart';
 import 'package:notes_app/Login%20/login.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/note.dart';
+import '../services/firestore_service.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirestoreService _firestoreService = FirestoreService();
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final user = _auth.currentUser;
+
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Notes"),
         centerTitle: true,
-        title: const Text(
-          "Notes App",
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
         backgroundColor: const Color(0xFFFFCA28),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const Login()),  // Navigate to Login after sign out
+              );
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -31,7 +51,7 @@ class Home extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: Color(0xFFFFCA28),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Notes App",
                   style: TextStyle(
@@ -65,76 +85,50 @@ class Home extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.logout),
-              title: const Text('LogOut'),
+              title: const Text('Logout'),
               onTap: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const Login()),
-                      (route) => false, // Clears the navigation stack after logout
+                  MaterialPageRoute(
+                    builder: (context) => const Login(),  // Replace with the Profile screen
+                  ),
                 );
               },
             ),
           ],
         ),
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('notes').snapshots(),
+      body: StreamBuilder<List<Note>>(
+        stream: _firestoreService.fetchNotes(user!.uid),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          final notes = snapshot.data!.docs;
+
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text("No notes yet. Add some!"));
+          }
+
+          final notes = snapshot.data!;
+
           return ListView.builder(
             itemCount: notes.length,
             itemBuilder: (context, index) {
               final note = notes[index];
-              return Card(
-                margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                child: ListTile(
-                  title: Text(note['title']),
-                  subtitle: Text(note['content']),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit, color: Colors.blue),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddNoteScreen(note: note),
-                            ),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () async {
-                          bool confirm = await showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Delete Note'),
-                              content: const Text('Are you sure you want to delete this note?'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, false),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, true),
-                                  child: const Text('Delete'),
-                                ),
-                              ],
-                            ),
-                          );
-                          if (confirm) {
-                            await _firestore.collection('notes').doc(note.id).delete();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+              return ListTile(
+                title: Text(note.title),
+                subtitle: Text(note.content),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () async {
+                    await _firestoreService.deleteNote(user.uid, note.id);
+                  },
                 ),
+                onTap: () {
+                  titleController.text = note.title;
+                  contentController.text = note.content;
+                  _showNoteDialog(user.uid, note: note);
+                },
               );
             },
           );
@@ -142,13 +136,64 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddNoteScreen()),
-          );
+          titleController.clear();
+          contentController.clear();
+          _showNoteDialog(user.uid);
         },
         backgroundColor: const Color(0xFFFFCA28),
         child: const Icon(Icons.add, color: Colors.black),
+      ),
+    );
+  }
+
+  void _showNoteDialog(String userId, {Note? note}) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(note == null ? "Add Note" : "Edit Note"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: titleController,
+              decoration: const InputDecoration(labelText: "Title"),
+            ),
+            TextField(
+              controller: contentController,
+              decoration: const InputDecoration(labelText: "Content"),
+              maxLines: 5,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () async {
+              final title = titleController.text.trim();
+              final content = contentController.text.trim();
+
+              if (title.isEmpty || content.isEmpty) return;
+
+              if (note == null) {
+                await _firestoreService.addNote(
+                  userId,
+                  Note(id: "", title: title, content: content),
+                );
+              } else {
+                await _firestoreService.updateNote(
+                  userId,
+                  Note(id: note.id, title: title, content: content),
+                );
+              }
+
+              Navigator.pop(context);
+            },
+            child: const Text("Save"),
+          ),
+        ],
       ),
     );
   }

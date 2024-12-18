@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Home()),
+        MaterialPageRoute(builder: (context) => const Home()),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -64,7 +64,6 @@ class _LoginState extends State<Login> {
                   ),
                   Image.asset("assets/login.png"),
                   const SizedBox(height: 15),
-                  // Email Field
                   _buildTextFormField(
                     controller: emailController,
                     hintText: "Email",
@@ -76,10 +75,8 @@ class _LoginState extends State<Login> {
                       return null;
                     },
                   ),
-                  // Password Field
                   _buildPasswordField(passwordController, "Password"),
                   const SizedBox(height: 15),
-                  // Login Button
                   Container(
                     height: 55,
                     width: MediaQuery.of(context).size.width * .9,
@@ -115,8 +112,7 @@ class _LoginState extends State<Login> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignupScreen()),
+                            MaterialPageRoute(builder: (context) => const SignupScreen()),
                           );
                         },
                         child: const Text(

@@ -15,15 +15,26 @@ class _SignupScreenState extends State<SignupScreen> {
   final emailname = TextEditingController();
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
+  final usernameController = TextEditingController();  // For username
   final formKey = GlobalKey<FormState>();
 
   bool isVisible = false;
-  
-  Future addUserDetails(String emailname, String password)async{
+  bool isConfirmPasswordVisible = false;
+
+  Future addUserDetails(String emailname, String password) async {
     await FirebaseFirestore.instance.collection('users').add({
       'email': emailname,
       'password': password,
     });
+  }
+
+  @override
+  void dispose() {
+    emailname.dispose();
+    password.dispose();
+    confirmPassword.dispose();
+    usernameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,12 +57,13 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   Container(
                     margin: EdgeInsets.all(8),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xFFFFCA28).withOpacity(.2)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Color(0xFFFFCA28).withOpacity(.2),
+                    ),
                     child: TextFormField(
+                      controller: usernameController,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.account_circle),
                         border: InputBorder.none,
@@ -59,95 +71,101 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                   ),
+                  // Email Field
                   Container(
                     margin: EdgeInsets.all(8),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xFFFFCA28).withOpacity(.2)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Color(0xFFFFCA28).withOpacity(.2),
+                    ),
                     child: TextFormField(
                       controller: emailname,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "useremail is required";
+                          return "Email is required";
                         }
                         return null;
                       },
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.account_circle),
+                        icon: Icon(Icons.email),
                         border: InputBorder.none,
-                        hintText: "User Email",
+                        hintText: "Email",
                       ),
                     ),
                   ),
+                  // Password Field
                   Container(
                     margin: const EdgeInsets.all(8),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xFFFFCA28).withOpacity(.2)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Color(0xFFFFCA28).withOpacity(.2),
+                    ),
                     child: TextFormField(
                       controller: password,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "password is required";
+                          return "Password is required";
                         }
                         return null;
                       },
                       obscureText: !isVisible,
                       decoration: InputDecoration(
-                          icon: const Icon(Icons.lock),
-                          border: InputBorder.none,
-                          hintText: "Password",
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isVisible = !isVisible;
-                                });
-                              },
-                              icon: Icon(isVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off))),
+                        icon: const Icon(Icons.lock),
+                        border: InputBorder.none,
+                        hintText: "Password",
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isVisible = !isVisible;
+                            });
+                          },
+                          icon: Icon(isVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                      ),
                     ),
                   ),
+                  // Confirm Password Field
                   Container(
                     margin: const EdgeInsets.all(8),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xFFFFCA28).withOpacity(.2)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Color(0xFFFFCA28).withOpacity(.2),
+                    ),
                     child: TextFormField(
                       controller: confirmPassword,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "password is required";
+                          return "Confirm password is required";
                         } else if (password.text != confirmPassword.text) {
                           return "Passwords don't match";
                         }
                         return null;
                       },
-                      obscureText: !isVisible,
+                      obscureText: !isConfirmPasswordVisible,
                       decoration: InputDecoration(
-                          icon: const Icon(Icons.lock),
-                          border: InputBorder.none,
-                          hintText: "Password",
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isVisible = !isVisible;
-                                });
-                              },
-                              icon: Icon(isVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off))),
+                        icon: const Icon(Icons.lock),
+                        border: InputBorder.none,
+                        hintText: "Confirm Password",
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                            });
+                          },
+                          icon: Icon(isConfirmPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                      ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
+                  // SignUp Button
                   Container(
                     height: 55,
                     width: MediaQuery.of(context).size.width * .9,
@@ -158,15 +176,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: TextButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          if (password.text != confirmPassword.text) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text('Passwords do not match'),
-                              ),
-                            );
-                            return;
-                          } try {
-                            // ignore: unused_local_variable
+                          try {
                             final credential = await _auth.createUserWithEmailAndPassword(
                               email: emailname.text,
                               password: password.text,
@@ -175,14 +185,17 @@ class _SignupScreenState extends State<SignupScreen> {
                               emailname.text.trim(),
                               password.text.trim(),
                             );
-                            Navigator.pushReplacement(context,MaterialPageRoute(
-                                builder: (context) => const Login(),
-                              ),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Signup successful')),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const Login()),
                             );
                           } on FirebaseAuthException catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('SignupScreen failed: ${e.message}'),
+                                content: Text('Signup failed: ${e.message}'),
                               ),
                             );
                           }
@@ -190,17 +203,21 @@ class _SignupScreenState extends State<SignupScreen> {
                       },
                       child: const Text(
                         "SIGN UP",
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
+                  // Login Redirect
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Already have an account?"),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder: (context) => const Login()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Login()),
+                          );
                         },
                         child: const Text(
                           'LOGIN',
@@ -211,7 +228,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
