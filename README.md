@@ -1,6 +1,6 @@
 # Notes App
 
-A simple **Notes App** built using **Flutter** and **Firebase**. The app allows users to take notes and sync them across devices in real-time using Firebase. It's designed to be simple, intuitive, and highly functional with cloud storage.
+A simple **Notes App** built using **Flutter** and **Firebase**. The app allows users to take notes and sync them across devices in real-time using Firebase. It's designed to be simple, intuitive, and highly functional with cloud storage. Additionally, the app is integrated with **Google Gemini** for AI-based chat functionality.
 
 ## Features
 - **Real-time Syncing**: Keep your notes updated across all devices using Firebase.
@@ -8,6 +8,7 @@ A simple **Notes App** built using **Flutter** and **Firebase**. The app allows 
 - **Cloud Storage**: Store notes securely in the cloud and access them anytime, anywhere.
 - **Cross-Platform**: Supports both Android and iOS devices.
 - **Authentication**: Secure user authentication with Firebase Auth (optional).
+- **AI Chat**: Interact with the app using the integrated **Google Gemini** AI for smart responses.
 
 ## Getting Started
 
@@ -20,6 +21,8 @@ Follow these steps to get your development environment set up for the Notes App.
     - Go to the [Firebase Console](https://console.firebase.google.com/).
     - Create a new Firebase project and configure it for both **Android** and **iOS**.
     - Download the configuration files (`google-services.json` for Android and `GoogleService-Info.plist` for iOS).
+- Set up a **Google Gemini API key**:
+    - Go to the [Google Gemini API documentation](https://developers.google.com/gemini) and get the API key for integration.
 
 ### Installation
 
@@ -27,6 +30,8 @@ Follow these steps to get your development environment set up for the Notes App.
 
    ```bash
    git clone https://github.com/your-username/notes-app.git
+   cd notes-app
+
 
 <a><img src="assets/image/1.jpg" width="90" /></a>
 <a><img src="assets/image/2.jpg" width="90" /></a>
