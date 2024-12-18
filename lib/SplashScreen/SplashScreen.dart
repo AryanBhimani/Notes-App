@@ -50,18 +50,18 @@ class OnboardingInfo {
 class OnboardingData {
   List<OnboardingInfo> items = [
     OnboardingInfo(
-      title: "Unlimited Questions",
-      description: "High-quality questions and quizzes with hundreds of tests",
+      title: "NoteEase",
+      description: "Capture, sync, and organize your notes in real-time.",
       image: "assets/onboarding1.png",
     ),
     OnboardingInfo(
-      title: "Interesting stories",
-      description: "Reading top stories to learn and enhance your knowledge",
+      title: "MyNotes",
+      description: "Your notes, always synced and accessible, wherever you are.",
       image: "assets/onboarding2.png",
     ),
     OnboardingInfo(
-      title: "Reading Books",
-      description: "Reading new books with top content and excellent stories",
+      title: "QuickNotes",
+      description: "Effortless note management with real-time syncing and cloud storage",
       image: "assets/onboarding3.png",
     ),
   ];
