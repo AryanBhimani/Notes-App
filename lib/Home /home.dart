@@ -4,8 +4,8 @@ import 'package:notes_app/Home%20/AI-Image.dart';
 import 'package:notes_app/Home%20/AI.dart';
 import 'package:notes_app/Home%20/profile.dart';
 import 'package:notes_app/Login%20/login.dart';
-import '../models/note.dart';
-import '../services/firestore_service.dart';
+import '../Models/note.dart';
+import '../Services/firestore_service.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

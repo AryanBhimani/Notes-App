@@ -104,6 +104,26 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 10),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgetPassword()));
+                          },
+                          child: Text('Forget password?',
+                            style: TextStyle(
+                              color: Color(0xff0931dc),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
