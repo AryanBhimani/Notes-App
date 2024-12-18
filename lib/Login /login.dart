@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_app/ForgetPassword/ForgetPassword.dart';
 import 'package:notes_app/Home%20/home.dart';
 import 'package:notes_app/Sign%20Up/signup.dart';
 
@@ -76,6 +77,25 @@ class _LoginState extends State<Login> {
                     },
                   ),
                   _buildPasswordField(passwordController, "Password"),
+                  SizedBox(height: 10),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgotPassword()));
+                          },
+                          child: Text('Forget password?',
+                            style: TextStyle(
+                              color: Color(0xff000004),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 15),
                   Container(
                     height: 55,
@@ -104,26 +124,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Padding(padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgetPassword()));
-                          },
-                          child: Text('Forget password?',
-                            style: TextStyle(
-                              color: Color(0xff0931dc),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
