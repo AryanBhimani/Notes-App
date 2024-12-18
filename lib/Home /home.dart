@@ -78,15 +78,6 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.push(context, MaterialPageRoute(builder: (_) => NotesScreen()));
-      //   },
-      //   backgroundColor: Color(0xFFFFCA28), // Custom color
-      //   child: const Icon(Icons.add, color: Colors.black), // Icon with white color
-      // ),
-      //
-
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore.collection('notes').snapshots(),
         builder: (context, snapshot) {
