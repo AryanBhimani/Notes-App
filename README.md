@@ -16,26 +16,23 @@ Follow these steps to get your development environment set up for the Notes App.
 ### Prerequisites
 
 - Install **Flutter**: Follow the instructions on the [official Flutter website](https://flutter.dev/docs/get-started/install).
-- Set up a **Firebase Project**: 
-  - Go to the [Firebase Console](https://console.firebase.google.com/).
-  - Create a new Firebase project and configure it for both **Android** and **iOS**.
-  - Download the configuration files (`google-services.json` for Android and `GoogleService-Info.plist` for iOS).
+- Set up a **Firebase Project**:
+    - Go to the [Firebase Console](https://console.firebase.google.com/).
+    - Create a new Firebase project and configure it for both **Android** and **iOS**.
+    - Download the configuration files (`google-services.json` for Android and `GoogleService-Info.plist` for iOS).
 
 ### Installation
 
-1. Dependency Install
+1. Clone the repository:
 
    ```bash
-   cupertino_icons: ^1.0.8
-    shared_preferences: ^2.3.3
-    cloud_firestore: ^5.5.1
-    firebase_auth: ^5.3.4
-    firebase_core: ^3.8.1
-    fluttertoast: ^8.2.8
-    google_gemini: ^0.1.2
-    image_picker: ^1.1.2
-    provider: ^6.1.2
+   git clone https://github.com/your-username/notes-app.git
 
+
+- **Website**: [Dev Aryan Bhimani](https://dev-aryanbhimani.pantheonsite.io/)
+- **LinkedIn**: [Aryan Bhimani](https://www.linkedin.com/in/aryanbhimani/)
+- **GitHub**: [AryanBhimani](https://github.com/AryanBhimani)
+- **Twitter**: [@yourtwitterhandle](https://twitter.com/yourtwitterhandle)
 
 <a href="https://dev-aryanbhimani.pantheonsite.io/" target="_blank"><img src="assets/portfolio.png" width="50" ></a>
 <a href="https://www.linkedin.com/in/aryanbhimani/" target="_blank"><img src="assets/linkedin.png" width="50"></a>
