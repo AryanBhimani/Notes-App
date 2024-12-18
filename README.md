@@ -1,26 +1,5 @@
 # Notes App
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
-
-
-
-# Notes App
-
 A simple **Notes App** built using **Flutter** and **Firebase**. The app allows users to take notes and sync them across devices in real-time using Firebase. It's designed to be simple, intuitive, and highly functional with cloud storage.
 
 ## Features
@@ -44,10 +23,18 @@ Follow these steps to get your development environment set up for the Notes App.
 
 ### Installation
 
-1. Clone the repository:
+1. Dependency Install
 
    ```bash
-   git clone https://github.com/your-username/notes-app.git
+   cupertino_icons: ^1.0.8
+    shared_preferences: ^2.3.3
+    cloud_firestore: ^5.5.1
+    firebase_auth: ^5.3.4
+    firebase_core: ^3.8.1
+    fluttertoast: ^8.2.8
+    google_gemini: ^0.1.2
+    image_picker: ^1.1.2
+    provider: ^6.1.2
 
 
 <a href="https://dev-aryanbhimani.pantheonsite.io/" target="_blank"><img src="assets/portfolio.png" width="50" ></a>
