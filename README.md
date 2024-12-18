@@ -28,22 +28,22 @@ Follow these steps to get your development environment set up for the Notes App.
    ```bash
    git clone https://github.com/your-username/notes-app.git
 
-<a><img src="assets/image/1.jpg" width="80" /></a>
-<a><img src="assets/image/2.jpg" width="80" /></a>
-<a><img src="assets/image/3.jpg" width="80" /></a>
-<a><img src="assets/image/4.jpg" width="80" /></a>
-<a><img src="assets/image/5.jpg" width="80" /></a>
-<a><img src="assets/image/6.jpg" width="80" /></a>
-<a><img src="assets/image/7.jpg" width="80" /></a>
-<a><img src="assets/image/8.jpg" width="80" /></a>
-<a><img src="assets/image/9.jpg" width="80" /></a>
-<a><img src="assets/image/10.jpg" width="80" /></a>
-<a><img src="assets/image/11.jpg" width="80" /></a>
-<a><img src="assets/image/12.jpg" width="80" /></a>
-<a><img src="assets/image/13.jpg" width="80" /></a>
-<a><img src="assets/image/14.jpg" width="80" /></a>
-<a><img src="assets/image/15.jpg" width="80" /></a>
-<a><img src="assets/image/16.jpg" width="80" /></a>
+<a><img src="assets/image/1.jpg" width="90" /></a>
+<a><img src="assets/image/2.jpg" width="90" /></a>
+<a><img src="assets/image/3.jpg" width="90" /></a>
+<a><img src="assets/image/4.jpg" width="90" /></a>
+<a><img src="assets/image/5.jpg" width="90" /></a>
+<a><img src="assets/image/6.jpg" width="90" /></a>
+<a><img src="assets/image/7.jpg" width="90" /></a>
+<a><img src="assets/image/8.jpg" width="90" /></a>
+<a><img src="assets/image/9.jpg" width="90" /></a>
+<a><img src="assets/image/10.jpg" width="90" /></a>
+<a><img src="assets/image/11.jpg" width="90" /></a>
+<a><img src="assets/image/12.jpg" width="90" /></a>
+<a><img src="assets/image/13.jpg" width="90" /></a>
+<a><img src="assets/image/14.jpg" width="90" /></a>
+<a><img src="assets/image/15.jpg" width="90" /></a>
+<a><img src="assets/image/16.jpg" width="90" /></a>
 
 
 <a href="https://dev-aryanbhimani.pantheonsite.io/" target="_blank"><img src="assets/portfolio.png" width="50" ></a>
