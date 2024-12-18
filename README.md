@@ -47,6 +47,10 @@ Follow these steps to get your development environment set up for the Notes App.
 ![Alt Text](assets/image/1.jpg)
 
 
+<img src="assets/image/1.jpg" width="50" />
+
+
+
 
 <a href="https://dev-aryanbhimani.pantheonsite.io/" target="_blank"><img src="assets/portfolio.png" width="50" ></a>
 <a href="https://www.linkedin.com/in/aryanbhimani/" target="_blank"><img src="assets/linkedin.png" width="50"></a>
