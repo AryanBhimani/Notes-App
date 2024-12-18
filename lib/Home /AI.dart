@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_gemini/google_gemini.dart';
+
 const apiKey = "AIzaSyDBlZs66H4pr9cMT2NycHKgzPZ7MulT0Ao";
 
-class textOnly extends StatefulWidget {
-  const textOnly({super.key});
+class TextOnly extends StatefulWidget {
+  const TextOnly({super.key});
 
   @override
-  State<textOnly> createState() => _textOnlyState();
+  State<TextOnly> createState() => _TextOnlyState();
 }
 
-class _textOnlyState extends State<textOnly> {
+class _TextOnlyState extends State<TextOnly> {
   bool loading = false;
   List textChat = [];
-  List textWithImageChat = [];
-  // bool _isRecording = false;
-
-
   final TextEditingController _textController = TextEditingController();
   final ScrollController _controller = ScrollController();
 
@@ -40,7 +37,7 @@ class _textOnlyState extends State<textOnly> {
       setState(() {
         loading = false;
         textChat.add({
-          "role": "Mind Sphere",
+          "role": "Notes",
           "text": value.text,
         });
       });
@@ -49,7 +46,7 @@ class _textOnlyState extends State<textOnly> {
       setState(() {
         loading = false;
         textChat.add({
-          "role": "Mind Sphere",
+          "role": "Notes",
           "text": error.toString(),
         });
       });
@@ -88,7 +85,10 @@ class _textOnlyState extends State<textOnly> {
                     child: Text(textChat[index]["role"].substring(0, 1)),
                   ),
                   title: Text(textChat[index]["role"]),
-                  subtitle: Text(textChat[index]["text"]),
+                  subtitle: SelectableText(
+                    textChat[index]["text"],  // Make the text selectable
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 );
               },
             ),
@@ -109,8 +109,9 @@ class _textOnlyState extends State<textOnly> {
                     decoration: InputDecoration(
                       hintText: "Type a message",
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide.none),
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
+                      ),
                       fillColor: Colors.transparent,
                     ),
                     maxLines: null,
@@ -120,14 +121,14 @@ class _textOnlyState extends State<textOnly> {
                 IconButton(
                   icon: loading
                       ? const CircularProgressIndicator()
-                      : const Icon(Icons.send,color: Color.fromARGB(255, 0, 0, 0)),
+                      : const Icon(Icons.send, color: Color.fromARGB(255, 0, 0, 0)),
                   onPressed: () {
                     fromText(query: _textController.text);
                   },
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

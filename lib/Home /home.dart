@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:notes_app/Home%20/AI-Image.dart';
 import 'package:notes_app/Home%20/AI.dart';
 import 'package:notes_app/Home%20/profile.dart';
 import 'package:notes_app/Login%20/login.dart';
@@ -73,14 +72,7 @@ class _HomeState extends State<Home> {
               leading: const Icon(Icons.text_snippet),
               title: const Text('Text Only'),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const textOnly()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.image),
-              title: const Text('Text with Image'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const textWithImage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const TextOnly()));
               },
             ),
             ListTile(
