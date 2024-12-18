@@ -15,7 +15,8 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Notes App",
+        title: const Text(
+          "Notes App",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -26,7 +27,6 @@ class Home extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            // Drawer Header
             DrawerHeader(
               decoration: const BoxDecoration(
                 color: Color(0xFFFFCA28),
@@ -42,7 +42,6 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            // List Items
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Profile'),
@@ -71,7 +70,7 @@ class Home extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const Login()),
-                  (route) => false, // Clears the navigation stack after logout
+                      (route) => false, // Clears the navigation stack after logout
                 );
               },
             ),
@@ -82,16 +81,60 @@ class Home extends StatelessWidget {
         stream: _firestore.collection('notes').snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           final notes = snapshot.data!.docs;
           return ListView.builder(
             itemCount: notes.length,
             itemBuilder: (context, index) {
               final note = notes[index];
-              return ListTile(
-                title: Text(note['title']),
-                subtitle: Text(note['content']),
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                child: ListTile(
+                  title: Text(note['title']),
+                  subtitle: Text(note['content']),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.blue),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddNoteScreen(note: note),
+                            ),
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: () async {
+                          bool confirm = await showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Delete Note'),
+                              content: const Text('Are you sure you want to delete this note?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, false),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: const Text('Delete'),
+                                ),
+                              ],
+                            ),
+                          );
+                          if (confirm) {
+                            await _firestore.collection('notes').doc(note.id).delete();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           );
@@ -104,7 +147,7 @@ class Home extends StatelessWidget {
             MaterialPageRoute(builder: (context) => AddNoteScreen()),
           );
         },
-        backgroundColor: Color(0xFFFFCA28),
+        backgroundColor: const Color(0xFFFFCA28),
         child: const Icon(Icons.add, color: Colors.black),
       ),
     );
