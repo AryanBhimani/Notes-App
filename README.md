@@ -28,11 +28,25 @@ Follow these steps to get your development environment set up for the Notes App.
    ```bash
    git clone https://github.com/your-username/notes-app.git
 
+![Alt Text](assets/image/1.jpg)
+![Alt Text](assets/image/2.jpg)
+![Alt Text](assets/image/3.jpg)
+![Alt Text](assets/image/4.jpg)
+![Alt Text](assets/image/5.jpg)
+![Alt Text](assets/image/6.jpg)
+![Alt Text](assets/image/7.jpg)
+![Alt Text](assets/image/8.jpg)
+![Alt Text](assets/image/9.jpg)
+![Alt Text](assets/image/10.jpg)
+![Alt Text](assets/image/11.jpg)
+![Alt Text](assets/image/12.jpg)
+![Alt Text](assets/image/13.jpg)
+![Alt Text](assets/image/14.jpg)
+![Alt Text](assets/image/1.jpg)
+![Alt Text](assets/image/1.jpg)
+![Alt Text](assets/image/1.jpg)
 
-- **Website**: [Dev Aryan Bhimani](https://dev-aryanbhimani.pantheonsite.io/)
-- **LinkedIn**: [Aryan Bhimani](https://www.linkedin.com/in/aryanbhimani/)
-- **GitHub**: [AryanBhimani](https://github.com/AryanBhimani)
-- **Twitter**: [@yourtwitterhandle](https://twitter.com/yourtwitterhandle)
+
 
 <a href="https://dev-aryanbhimani.pantheonsite.io/" target="_blank"><img src="assets/portfolio.png" width="50" ></a>
 <a href="https://www.linkedin.com/in/aryanbhimani/" target="_blank"><img src="assets/linkedin.png" width="50"></a>
