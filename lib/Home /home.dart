@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes_app/Home%20/AI.dart';
 import 'package:notes_app/Home%20/profile.dart';
 import 'package:notes_app/Login%20/login.dart';
-import '../Models/note.dart';
+import '../Services/note.dart';
 import '../Services/firestore_service.dart';
 
 class Home extends StatefulWidget {
@@ -31,7 +31,8 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color(0xFFFFCA28),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+      icon: const Icon(
+        Icons.logout,color: Colors.black),
             onPressed: () async {
               await _auth.signOut();
               Navigator.pushReplacement(
@@ -62,21 +63,21 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.person),
+              leading: const Icon(Icons.person,color: Colors.black),
               title: const Text('Profile'),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const profile()));
               },
             ),
             ListTile(
-              leading: const Icon(Icons.text_snippet),
+              leading: const Icon(Icons.text_snippet,color: Colors.black),
               title: const Text('Text Only'),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const TextOnly()));
               },
             ),
             ListTile(
-              leading: const Icon(Icons.logout),
+              leading: const Icon(Icons.logout,color: Colors.black),
               title: const Text('Logout'),
               onTap: () {
                 Navigator.pushReplacement(
@@ -142,7 +143,11 @@ class _HomeState extends State<Home> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(note == null ? "Add Note" : "Edit Note"),
+        title: Text(note == null ? "Add Note" : "Edit Note",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -160,7 +165,11 @@ class _HomeState extends State<Home> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel"),
+            child: const Text("Cancel",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ),
           TextButton(
             onPressed: () async {
@@ -183,7 +192,11 @@ class _HomeState extends State<Home> {
 
               Navigator.pop(context);
             },
-            child: const Text("Save"),
+            child: const Text("Save",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ),
         ],
       ),
