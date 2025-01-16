@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:notes_app/Home%20/AI.dart';
-import 'package:notes_app/Home%20/profile.dart';
-import 'package:notes_app/Login%20/login.dart';
+import 'package:notes_app/Screen/Home%20/AI.dart';
+import 'package:notes_app/Screen/Home%20/profile.dart';
+import 'package:notes_app/Screen/Login%20/login.dart';
 import '../Services/note.dart';
 import '../Services/firestore_service.dart';
 
@@ -36,6 +36,7 @@ class _HomeState extends State<Home> {
             onPressed: () async {
               await _auth.signOut();
               Navigator.pushReplacement(
+                // ignore: use_build_context_synchronously
                 context,
                 MaterialPageRoute(builder: (context) => const Login()),  // Navigate to Login after sign out
               );
@@ -47,11 +48,11 @@ class _HomeState extends State<Home> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
+            const DrawerHeader(
+              decoration: BoxDecoration(
                 color: Color(0xFFFFCA28),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   "Notes App",
                   style: TextStyle(
@@ -144,7 +145,7 @@ class _HomeState extends State<Home> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(note == null ? "Add Note" : "Edit Note",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -190,6 +191,7 @@ class _HomeState extends State<Home> {
                 );
               }
 
+              // ignore: use_build_context_synchronously
               Navigator.pop(context);
             },
             child: const Text("Save",

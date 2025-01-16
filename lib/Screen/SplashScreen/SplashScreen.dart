@@ -1,11 +1,12 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:notes_app/Home%20/home.dart';
-import 'package:notes_app/Login%20/login.dart';
+import 'package:notes_app/Screen/Home%20/home.dart';
+import 'package:notes_app/Screen/Login%20/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +15,14 @@ class SplashScreen extends StatelessWidget {
       if (user != null) {
         // Navigate to Home if user is logged in
         Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => const Home()),
         );
       } else {
         // Navigate to Login if user is not logged in
         Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const OnboardingPage()),
         );
@@ -93,8 +96,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
     if (isOnboardingCompleted) {
       // Navigate to the login page if onboarding is completed
       Navigator.pushReplacement(
+        // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => const Login()),
       );
     }
   }
@@ -177,7 +181,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           margin: const EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            color: currentIndex == index ? Color(0xFFFFCA28) : Colors.grey,
+            color: currentIndex == index ? const Color(0xFFFFCA28) : Colors.grey,
           ),
           height: 7,
           width: currentIndex == index ? 30 : 7,
@@ -195,7 +199,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Color(0xFFFFCA28),
+        color: const Color(0xFFFFCA28),
       ),
       child: TextButton(
         onPressed: () {
@@ -207,7 +211,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               _setOnboardingCompleted();
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => Login()),
+                MaterialPageRoute(builder: (context) => const Login()),
               );
             }
           });

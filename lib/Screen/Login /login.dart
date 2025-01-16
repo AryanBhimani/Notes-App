@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/ForgetPassword/ForgetPassword.dart';
-import 'package:notes_app/Home%20/home.dart';
-import 'package:notes_app/Sign%20Up/signup.dart';
+import 'package:notes_app/Screen/ForgetPassword/ForgetPassword.dart';
+import 'package:notes_app/Screen/Home%20/home.dart';
+import 'package:notes_app/Screen/Sign%20Up/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                     },
                   ),
                   _buildPasswordField(passwordController, "Password"),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Padding(padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -86,9 +86,10 @@ class _LoginState extends State<Login> {
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgotPassword()));
                           },
-                          child: Text('Forget password?',
+                          child: const Text('Forget password?',
                             style: TextStyle(
-                              color: Color(0xff000004),
+                              // ignore: unnecessary_const
+                              color: const Color(0xff000004),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

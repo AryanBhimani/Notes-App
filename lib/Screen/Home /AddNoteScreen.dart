@@ -1,12 +1,15 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddNoteScreen extends StatefulWidget {
   final DocumentSnapshot? note; // For editing, this will hold the note document.
 
+  // ignore: use_super_parameters
   const AddNoteScreen({Key? key, this.note}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AddNoteScreenState createState() => _AddNoteScreenState();
 }
 
@@ -28,7 +31,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   void _saveNote() async {
     if (_titleController.text.isEmpty || _contentController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Title and Content cannot be empty.')),
+        const SnackBar(content: Text('Title and Content cannot be empty.')),
       );
       return;
     }
@@ -49,8 +52,10 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           'updatedAt': FieldValue.serverTimestamp(),
         });
       }
+      // ignore: use_build_context_synchronously
       Navigator.pop(context); // Close the screen after saving.
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error saving note: $e')),
       );
@@ -70,17 +75,18 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(labelText: 'Title'),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextField(
               controller: _contentController,
-              decoration: InputDecoration(labelText: 'Content'),
+              decoration: const InputDecoration(labelText: 'Content'),
               maxLines: 5,
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: _saveNote,
+              // ignore: sort_child_properties_last
               child: Text(widget.note == null ? 'Add Note' : 'Update Note'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFFFCA28),

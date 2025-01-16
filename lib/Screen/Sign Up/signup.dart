@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/Login%20/login.dart';
+import 'package:notes_app/Screen/Login%20/login.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -56,11 +56,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(8),
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color(0xFFFFCA28).withOpacity(.2),
+                      color: const Color(0xFFFFCA28).withOpacity(.2),
                     ),
                     child: TextFormField(
                       controller: usernameController,
@@ -73,11 +73,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   // Email Field
                   Container(
-                    margin: EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(8),
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color(0xFFFFCA28).withOpacity(.2),
+                      color: const Color(0xFFFFCA28).withOpacity(.2),
                     ),
                     child: TextFormField(
                       controller: emailname,
@@ -100,7 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color(0xFFFFCA28).withOpacity(.2),
+                      color: const Color(0xFFFFCA28).withOpacity(.2),
                     ),
                     child: TextFormField(
                       controller: password,
@@ -134,7 +134,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color(0xFFFFCA28).withOpacity(.2),
+                      color: const Color(0xFFFFCA28).withOpacity(.2),
                     ),
                     child: TextFormField(
                       controller: confirmPassword,
@@ -171,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     width: MediaQuery.of(context).size.width * .9,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: Color(0xFFFFCA28),
+                      color: const Color(0xFFFFCA28),
                     ),
                     child: TextButton(
                       onPressed: () async {
@@ -186,14 +186,17 @@ class _SignupScreenState extends State<SignupScreen> {
                               emailname.text.trim(),
                               password.text.trim(),
                             );
+                            // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Signup successful')),
                             );
                             Navigator.pushReplacement(
+                              // ignore: use_build_context_synchronously
                               context,
                               MaterialPageRoute(builder: (context) => const Login()),
                             );
                           } on FirebaseAuthException catch (e) {
+                            // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Signup failed: ${e.message}'),

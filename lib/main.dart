@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/SplashScreen/SplashScreen.dart';
+import 'package:notes_app/Screen/SplashScreen/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

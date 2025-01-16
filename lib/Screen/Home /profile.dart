@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:notes_app/Login%20/login.dart';
+import 'package:notes_app/Screen/Login%20/login.dart';
 
+// ignore: camel_case_types
 class profile extends StatelessWidget {
-  const profile({Key? key}) : super(key: key);
+  const profile({super.key});
 
   @override
   Widget build(BuildContext context) {

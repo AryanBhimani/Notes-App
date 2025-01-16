@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/Login%20/login.dart';
+import 'package:notes_app/Screen/Login%20/login.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -17,7 +17,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   resetPassword() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
           "Password Reset Email has been sent!",
           style: TextStyle(fontSize: 20.0),
@@ -25,7 +26,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ));
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
             "No user found for that email.",
             style: TextStyle(fontSize: 20.0),
@@ -44,10 +46,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 70.0),
+              const SizedBox(height: 70.0),
               Container(
                 alignment: Alignment.topCenter,
-                child: Text(
+                child: const Text(
                   "Password Recovery",
                   style: TextStyle(
                     color: Colors.black,  // Change text color to black for contrast
@@ -56,8 +58,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
-              Text(
+              const SizedBox(height: 20.0),
+              const Text(
                 "Enter your email to reset password",
                 style: TextStyle(
                   color: Colors.black87,  // Change text color to black87 for better readability
@@ -65,7 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 30.0),
+              const SizedBox(height: 30.0),
               Form(
                 key: _formkey,
                 child: Column(
@@ -78,7 +80,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                       child: TextFormField(
                         controller: mailcontroller,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -86,7 +88,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Email",
                           hintStyle: TextStyle(fontSize: 18.0, color: Colors.black54),
                           prefixIcon: Icon(
@@ -97,7 +99,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40.0),
+                    const SizedBox(height: 40.0),
                     GestureDetector(
                       onTap: () {
                         if (_formkey.currentState!.validate()) {
@@ -111,10 +113,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         width: double.infinity,
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                          color: Color(0xFFFFCA28),  // Keep the button color for the "Send Email"
+                          color: const Color(0xFFFFCA28),  // Keep the button color for the "Send Email"
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Send Reset Email",
                             style: TextStyle(
@@ -126,28 +128,28 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 50.0),
+                    const SizedBox(height: 50.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Don't have an account?",
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.black87,  // Update color for readability
                           ),
                         ),
-                        SizedBox(width: 5.0),
+                        const SizedBox(width: 5.0),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Login(),
+                                builder: (context) => const Login(),
                               ),
                             );
                           },
-                          child: Text(
+                          child: const Text(
                             "Create one",
                             style: TextStyle(
                               color: Color(0xFFFFCA28),
