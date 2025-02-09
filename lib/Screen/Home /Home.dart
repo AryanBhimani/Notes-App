@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
@@ -39,10 +41,10 @@ class _HomeState extends State<Home> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout, size: 28),
+            icon: const Icon(Icons.logout_outlined, size: 28),
             onPressed: () async {
-              await _auth.signOut();
-              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const Login()));
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Login()));
             },
           ),
         ],
@@ -64,13 +66,7 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-  Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.black),
-      title: Text(title),
-      onTap: onTap,
-    );
-  }
+
   Widget _buildNotesList(User? user) {
     return StreamBuilder<List<Note>>(
       stream: _firestoreService.fetchNotes(user!.uid),
@@ -117,70 +113,115 @@ class _HomeState extends State<Home> {
     final titleController = TextEditingController(text: note?.title);
     final contentController = TextEditingController(text: note?.content);
 
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      builder: (context) => Scaffold(
-        backgroundColor: white,
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: yellow,
-          foregroundColor: black,
-          title: Text(
-            note == null ? "Add Note" : "Edit Note",
-            style: const TextStyle(fontWeight: FontWeight.bold,),
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.close,size: 28),
-            onPressed: () => Navigator.pop(context),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.save, color: Colors.green, size: 28),
-              onPressed: () async {
-                final title = titleController.text.trim();
-                final content = contentController.text.trim();
-
-                if (title.isEmpty || content.isEmpty) return;
-
-                if (note == null) {
-                  await _firestoreService.addNote(
-                    userId,
-                    Note(id: "", title: title, content: content),
-                  );
-                } else {
-                  await _firestoreService.updateNote(
-                    userId,
-                    Note(id: note.id, title: title, content: content),
-                  );
-                }
-                Navigator.pop(context);
-              },
-            ),
-          ],
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      backgroundColor: Colors.white,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
+        child: Container(
+          padding: const EdgeInsets.all(20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                controller: titleController,
-                decoration: const InputDecoration(
-                  labelText: "Title",
-                  border: OutlineInputBorder(),
+              Container(
+                height: 4,
+                width: 40,
+                margin: const EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              Text(
+                note == null ? "Add Note" : "Edit Note",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 20),
-              Expanded(
-                child: TextField(
-                  controller: contentController,
-                  decoration: const InputDecoration(
-                    labelText: "Content",
-                    border: OutlineInputBorder(),
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  labelText: "Title",
+                  labelStyle: TextStyle(color: Colors.grey[700]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  maxLines: null,
-                  expands: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.yellow),
+                  ),
                 ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                controller: contentController,
+                decoration: InputDecoration(
+                  labelText: "Content",
+                  labelStyle: TextStyle(color: Colors.grey[700]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.yellow),
+                  ),
+                ),
+                maxLines: 5,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.close, color: Colors.white),
+                    label: const Text("Cancel"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      final title = titleController.text.trim();
+                      final content = contentController.text.trim();
+
+                      if (title.isEmpty || content.isEmpty) return;
+
+                      if (note == null) {
+                        await _firestoreService.addNote(
+                          userId,
+                          Note(id: "", title: title, content: content),
+                        );
+                      } else {
+                        await _firestoreService.updateNote(
+                          userId,
+                          Note(id: note.id, title: title, content: content),
+                        );
+                      }
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.save, color: Colors.white),
+                    label: const Text("Save"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
