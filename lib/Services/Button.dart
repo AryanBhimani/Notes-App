@@ -21,7 +21,7 @@ class Button extends StatelessWidget {
 
       child: TextButton(
         onPressed: onPressed,
-        child: Text(label, style: const TextStyle(color: white, fontSize: 18.0)),
+        child: Text(label, style: const TextStyle(color: black, fontSize: 18.0)),
       ),
     );
   }

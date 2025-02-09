@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notes_app/Screen/Home%20/AI.dart';
-import 'package:notes_app/Screen/Home%20/profile.dart';
+import 'package:notes_app/Screen/Home%20/Profile.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
 import 'package:notes_app/Services/Colors.dart';
 import '../../Services/note.dart';
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           _buildDrawerItem(Icons.person, 'Profile', () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const profile()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile()));
           }),
           _buildDrawerItem(Icons.text_snippet, 'Text Only', () {
             Navigator.push(context, MaterialPageRoute(builder: (context) => const TextOnly()));

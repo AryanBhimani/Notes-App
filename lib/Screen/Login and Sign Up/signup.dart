@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:notes_app/Screen/Home%20/home.dart';
+import 'package:notes_app/Screen/Home%20/Home.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
 import 'package:notes_app/Services/Button.dart';
 import 'package:notes_app/Services/Colors.dart';

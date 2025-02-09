@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:notes_app/Screen/Home%20/home.dart';
+import 'package:notes_app/Screen/Home%20/Home.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
 import 'package:notes_app/Services/Button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
