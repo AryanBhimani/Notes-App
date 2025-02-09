@@ -251,8 +251,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:notes_app/Screen/Home%20/home.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
-import 'package:notes_app/Screen/Services/Button.dart';
-import 'package:notes_app/Screen/Services/Colors.dart';
+import 'package:notes_app/Services/Button.dart';
+import 'package:notes_app/Services/Colors.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

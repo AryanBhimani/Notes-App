@@ -410,9 +410,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes_app/Screen/Home%20/home.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
-import 'package:notes_app/Screen/Services/Button.dart';
+import 'package:notes_app/Services/Button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:notes_app/Screen/Services/Colors.dart';
+import 'package:notes_app/Services/Colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

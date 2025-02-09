@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/Screen/Services/Colors.dart';
+import 'package:notes_app/Services/Colors.dart';
 
 class Button extends StatelessWidget {
   final String label;
