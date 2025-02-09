@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/Screen/ForgetPassword/ForgetPassword.dart';
+import 'package:notes_app/Screen/Login%20and%20Sign%20Up/ForgetPassword.dart';
 import 'package:notes_app/Screen/Home%20/home.dart';
-import 'package:notes_app/Screen/Sign%20Up/signup.dart';
+import 'package:notes_app/Screen/Login%20and%20Sign%20Up/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

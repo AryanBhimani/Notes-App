@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes_app/Screen/Home%20/AI.dart';
 import 'package:notes_app/Screen/Home%20/profile.dart';
-import 'package:notes_app/Screen/Login%20/login.dart';
+import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
 import '../Services/note.dart';
 import '../Services/firestore_service.dart';
 
