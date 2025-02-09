@@ -24,7 +24,7 @@ class Profile extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: white,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: yellow,

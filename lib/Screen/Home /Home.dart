@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
-import 'package:notes_app/Screen/Home%20/AI.dart';
 import 'package:notes_app/Screen/Home%20/Profile.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
 import 'package:notes_app/Services/Colors.dart';
@@ -26,13 +25,21 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final user = _auth.currentUser;
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
-        title: const Text("Notes", style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: yellow,
+        foregroundColor: black,
+        title: const Text("Notes"),
+        leading: IconButton(
+          icon: const Icon(Icons.account_circle, size: 28),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile()));
+          },
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout, color: Colors.black),
+            icon: const Icon(Icons.logout, size: 28),
             onPressed: () async {
               await _auth.signOut();
               Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const Login()));
@@ -40,8 +47,12 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      drawer: _buildDrawer(context),
-      body: _buildNotesList(user),
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          Expanded(child: _buildNotesList(user)),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           titleController.clear();
@@ -50,38 +61,6 @@ class _HomeState extends State<Home> {
         },
         backgroundColor: yellow,
         child: Lottie.asset('assets/ai.json', width: 40),
-      ),
-    );
-  }
-  Widget _buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: yellow),
-            child: Center(
-              child: Text(
-                "Notes App",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          _buildDrawerItem(Icons.person, 'Profile', () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile()));
-          }),
-          _buildDrawerItem(Icons.text_snippet, 'Text Only', () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const TextOnly()));
-          }),
-          _buildDrawerItem(Icons.logout, 'Logout', () async {
-            await _auth.signOut();
-            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const Login()));
-          }),
-        ],
       ),
     );
   }
@@ -141,20 +120,22 @@ class _HomeState extends State<Home> {
     showDialog(
       context: context,
       builder: (context) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: white,
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: yellow,
+          foregroundColor: black,
           title: Text(
             note == null ? "Add Note" : "Edit Note",
-            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold,),
           ),
           leading: IconButton(
-            icon: const Icon(Icons.close, color: Colors.black),
+            icon: const Icon(Icons.close,size: 28),
             onPressed: () => Navigator.pop(context),
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.save, color: Colors.green),
+              icon: const Icon(Icons.save, color: Colors.green, size: 28),
               onPressed: () async {
                 final title = titleController.text.trim();
                 final content = contentController.text.trim();

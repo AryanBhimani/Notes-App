@@ -73,7 +73,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: white,
       appBar: AppBar(
         title: const Text("Edit Profile", style: TextStyle(color: Colors.black)),
         centerTitle: true,
@@ -107,10 +107,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                   fillColor: Colors.white,
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 30),
               Button(label: "Forgot Password?", onPressed: _resetPassword),
               Button(label: "Save Changes", onPressed: _updateProfile),
-              const SizedBox(height: 20),
+              
             ],
           ),
         ),
