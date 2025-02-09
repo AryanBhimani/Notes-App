@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lottie/lottie.dart';
 import 'package:notes_app/Screen/Home%20/AI.dart';
 import 'package:notes_app/Screen/Home%20/profile.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
+import 'package:notes_app/Services/Colors.dart';
 import '../../Services/note.dart';
 import '../../Services/firestore_service.dart';
 
@@ -23,97 +25,98 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final user = _auth.currentUser;
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notes"),
+        title: const Text("Notes", style: TextStyle(color: Colors.black)),
         centerTitle: true,
-        backgroundColor: const Color(0xFFFFCA28),
+        backgroundColor: yellow,
         actions: [
           IconButton(
-      icon: const Icon(
-        Icons.logout,color: Colors.black),
+            icon: const Icon(Icons.logout, color: Colors.black),
             onPressed: () async {
               await _auth.signOut();
-              Navigator.pushReplacement(
-                // ignore: use_build_context_synchronously
-                context,
-                MaterialPageRoute(builder: (context) => const Login()),  // Navigate to Login after sign out
-              );
+              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const Login()));
             },
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color(0xFFFFCA28),
-              ),
-              child: Center(
-                child: Text(
-                  "Notes App",
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+      drawer: _buildDrawer(context),
+      body: _buildNotesList(user),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          titleController.clear();
+          contentController.clear();
+          _showNoteDialog(user!.uid);
+        },
+        backgroundColor: yellow,
+        child: Lottie.asset('assets/ai.json', width: 40),
+      ),
+    );
+  }
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(color: yellow),
+            child: Center(
+              child: Text(
+                "Notes App",
+                style: TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.person,color: Colors.black),
-              title: const Text('Profile'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const profile()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.text_snippet,color: Colors.black),
-              title: const Text('Text Only'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const TextOnly()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout,color: Colors.black),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),  // Replace with the Profile screen
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+          ),
+          _buildDrawerItem(Icons.person, 'Profile', () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const profile()));
+          }),
+          _buildDrawerItem(Icons.text_snippet, 'Text Only', () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const TextOnly()));
+          }),
+          _buildDrawerItem(Icons.logout, 'Logout', () async {
+            await _auth.signOut();
+            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const Login()));
+          }),
+        ],
       ),
-      body: StreamBuilder<List<Note>>(
-        stream: _firestoreService.fetchNotes(user!.uid),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    );
+  }
+  Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.black),
+      title: Text(title),
+      onTap: onTap,
+    );
+  }
+  Widget _buildNotesList(User? user) {
+    return StreamBuilder<List<Note>>(
+      stream: _firestoreService.fetchNotes(user!.uid),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("No notes yet. Add some!"));
-          }
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text("No notes yet. Add some!"));
+        }
 
-          final notes = snapshot.data!;
+        final notes = snapshot.data!;
 
-          return ListView.builder(
-            itemCount: notes.length,
-            itemBuilder: (context, index) {
-              final note = notes[index];
-              return ListTile(
-                title: Text(note.title),
-                subtitle: Text(note.content),
+        return ListView.builder(
+          itemCount: notes.length,
+          itemBuilder: (context, index) {
+            final note = notes[index];
+            return Card(
+              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              child: ListTile(
+                title: Text(note.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text(note.content, maxLines: 2, overflow: TextOverflow.ellipsis),
                 trailing: IconButton(
-                  icon: const Icon(Icons.delete),
+                  icon: const Icon(Icons.delete, color: Colors.redAccent),
                   onPressed: () async {
                     await _firestoreService.deleteNote(user.uid, note.id);
                   },
@@ -123,84 +126,84 @@ class _HomeState extends State<Home> {
                   contentController.text = note.content;
                   _showNoteDialog(user.uid, note: note);
                 },
-              );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          titleController.clear();
-          contentController.clear();
-          _showNoteDialog(user.uid);
-        },
-        backgroundColor: const Color(0xFFFFCA28),
-        child: const Icon(Icons.add, color: Colors.black),
-      ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
   void _showNoteDialog(String userId, {Note? note}) {
+    final titleController = TextEditingController(text: note?.title);
+    final contentController = TextEditingController(text: note?.content);
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(note == null ? "Add Note" : "Edit Note",
-          style: const TextStyle(
-            color: Colors.black,
+      builder: (context) => Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: yellow,
+          title: Text(
+            note == null ? "Add Note" : "Edit Note",
+            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: "Title"),
-            ),
-            TextField(
-              controller: contentController,
-              decoration: const InputDecoration(labelText: "Content"),
-              maxLines: 5,
+          leading: IconButton(
+            icon: const Icon(Icons.close, color: Colors.black),
+            onPressed: () => Navigator.pop(context),
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.save, color: Colors.green),
+              onPressed: () async {
+                final title = titleController.text.trim();
+                final content = contentController.text.trim();
+
+                if (title.isEmpty || content.isEmpty) return;
+
+                if (note == null) {
+                  await _firestoreService.addNote(
+                    userId,
+                    Note(id: "", title: title, content: content),
+                  );
+                } else {
+                  await _firestoreService.updateNote(
+                    userId,
+                    Note(id: note.id, title: title, content: content),
+                  );
+                }
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel",
-              style: TextStyle(
-                color: Colors.black,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(
+                  labelText: "Title",
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-          ),
-          TextButton(
-            onPressed: () async {
-              final title = titleController.text.trim();
-              final content = contentController.text.trim();
-
-              if (title.isEmpty || content.isEmpty) return;
-
-              if (note == null) {
-                await _firestoreService.addNote(
-                  userId,
-                  Note(id: "", title: title, content: content),
-                );
-              } else {
-                await _firestoreService.updateNote(
-                  userId,
-                  Note(id: note.id, title: title, content: content),
-                );
-              }
-
-              // ignore: use_build_context_synchronously
-              Navigator.pop(context);
-            },
-            child: const Text("Save",
-              style: TextStyle(
-                color: Colors.black,
+              const SizedBox(height: 20),
+              Expanded(
+                child: TextField(
+                  controller: contentController,
+                  decoration: const InputDecoration(
+                    labelText: "Content",
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: null,
+                  expands: true,
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:notes_app/Services/Colors.dart';
 
 class AddNoteScreen extends StatefulWidget {
   final DocumentSnapshot? note; // For editing, this will hold the note document.
@@ -67,7 +68,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.note == null ? 'Add Note' : 'Edit Note'),
-        backgroundColor: const Color(0xFFFFCA28),
+        backgroundColor: yellow,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -89,8 +90,8 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
               // ignore: sort_child_properties_last
               child: Text(widget.note == null ? 'Add Note' : 'Update Note'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFFCA28),
-                foregroundColor: Colors.black,
+                backgroundColor: yellow,
+                foregroundColor: black,
               ),
             ),
           ],

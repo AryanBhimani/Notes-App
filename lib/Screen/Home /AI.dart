@@ -1,6 +1,8 @@
 // ignore: file_names
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_gemini/google_gemini.dart';
+import 'package:notes_app/Services/Colors.dart';
 
 const apiKey = "AIzaSyDBlZs66H4pr9cMT2NycHKgzPZ7MulT0Ao";
 
@@ -16,6 +18,8 @@ class _TextOnlyState extends State<TextOnly> {
   List textChat = [];
   final TextEditingController _textController = TextEditingController();
   final ScrollController _controller = ScrollController();
+  final User? user = FirebaseAuth.instance.currentUser;
+  
 
   // Create Gemini Instance
   final gemini = GoogleGemini(
@@ -27,7 +31,7 @@ class _TextOnlyState extends State<TextOnly> {
     setState(() {
       loading = true;
       textChat.add({
-        "role": "User",
+        "role": "${user?.email}",
         "text": query,
       });
       _textController.clear();
@@ -64,11 +68,11 @@ class _TextOnlyState extends State<TextOnly> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: const Color(0xFFFFCA28),
+        backgroundColor: yellow,
         title: const Text(
           'AI Chat',
           style: TextStyle(
-            color: Colors.black,
+            color: black,
           ),
         ),
       ),
@@ -88,7 +92,7 @@ class _TextOnlyState extends State<TextOnly> {
                   title: Text(textChat[index]["role"]),
                   subtitle: SelectableText(
                     textChat[index]["text"],  // Make the text selectable
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(color: black),
                   ),
                 );
               },
@@ -100,7 +104,7 @@ class _TextOnlyState extends State<TextOnly> {
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40.0),
-              border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
+              border: Border.all(color: black),
             ),
             child: Row(
               children: [
@@ -113,7 +117,7 @@ class _TextOnlyState extends State<TextOnly> {
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: BorderSide.none,
                       ),
-                      fillColor: Colors.transparent,
+                      fillColor: black,
                     ),
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
@@ -122,7 +126,7 @@ class _TextOnlyState extends State<TextOnly> {
                 IconButton(
                   icon: loading
                       ? const CircularProgressIndicator()
-                      : const Icon(Icons.send, color: Color.fromARGB(255, 0, 0, 0)),
+                      : const Icon(Icons.send, color: black),
                   onPressed: () {
                     fromText(query: _textController.text);
                   },

@@ -1,8 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes_app/Screen/Login%20and%20Sign%20Up/login.dart';
+import 'package:notes_app/Services/Colors.dart';
 
 // ignore: camel_case_types
 class profile extends StatelessWidget {
@@ -15,10 +14,8 @@ class profile extends StatelessWidget {
     // Check if user is logged in
     if (user == null) {
       Future.delayed(Duration.zero, () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Login()),
-        );
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const Login()));
       });
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
@@ -29,7 +26,7 @@ class profile extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Profile"),
         centerTitle: true,
-        backgroundColor: const Color(0xFFFFCA28)
+        backgroundColor: yellow
       ),
       body: Center(
         child: Column(
@@ -47,7 +44,7 @@ class profile extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: const Color(0xFFFFCA28), // Text color
+                foregroundColor: white, backgroundColor: yellow, // Text color
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -55,10 +52,8 @@ class profile extends StatelessWidget {
               ),
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Login()),
-                );
+                // ignore: use_build_context_synchronously
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const Login()));
               },
               child: const Text(
                 "Log Out",
