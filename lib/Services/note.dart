@@ -6,7 +6,7 @@ class Note {
   Note({
     required this.id,
     required this.title,
-    required this.content,
+    required this.content, DateTime? dateTime,
   });
 
   // Convert a Note object to a Firestore document.
@@ -25,4 +25,6 @@ class Note {
       content: map['content'],
     );
   }
+
+  DateTime? get dateTime => null;
 }
